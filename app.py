@@ -1,7 +1,9 @@
+from numpy import imag
 import streamlit as st
 from app_home import run_home
 from app_eda import run_eda
 from app_ml import run_ml
+from PIL import Image
 
 def main():
     st.title('자동차 가격 예측 App')
@@ -14,6 +16,8 @@ def main():
         run_eda()
     elif choice == menu[2]:
         run_ml()
+url = 'https://mblogthumb-phinf.pstatic.net/20160817_259/retspe_14714118890125sC2j_PNG/%C7%C7%C4%AB%C3%F2_%281%29.png?type=w800'
+st.sidebar.image(url)
 
 if __name__ == '__main__':
     main()
