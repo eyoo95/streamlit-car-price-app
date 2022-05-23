@@ -16,8 +16,7 @@ def main():
         run_eda()
     elif choice == menu[2]:
         run_ml()
-url = 'https://mblogthumb-phinf.pstatic.net/20160817_259/retspe_14714118890125sC2j_PNG/%C7%C7%C4%AB%C3%F2_%281%29.png?type=w800'
-st.sidebar.image(url)
+
 
 if __name__ == '__main__':
     main()

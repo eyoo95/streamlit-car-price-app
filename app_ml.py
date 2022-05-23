@@ -1,5 +1,6 @@
 import streamlit as st
 import joblib
+import numpy as np
 
 def run_ml():
     st.subheader('자동차 구매 가능 가격 예측')
@@ -22,8 +23,24 @@ def run_ml():
         gender = 0
     else:
         gender = 1
-    st.number_input('나이를 입력하세요',0,120)
-    st.number_input('연봉을 입력하세요',0)
-    st.number_input('카드 빛을 입력하세요',0)
-    st.number_input('자산을 입력하세요',0)
+    age = st.number_input('나이를 입력하세요',0,120)
+    salary = st.number_input('연봉을 입력하세요',0)
+    debt = st.number_input('카드 빛을 입력하세요',0)
+    asset = st.number_input('자산을 입력하세요',0)
 
+
+    # 1. 신규고객의 정보를 넘파이 어레이로 만들어준다.
+    new_data = np.array([gender, age, salary, debt, asset])
+
+    # 2. 학습할때 사용한 X의 피텨스케일링을 이용해서 피처스케일링 한다.
+    # 먼저 데이터를 2차원으로 만든다. 
+    new_data.reshape(1,5)
+    new_data = scaler_X.transform(new_data)
+
+    # 3. 인공지능에게 예측해달라고 한다.
+    y_pred = regressor.predict(new_data)
+
+    # 4. 예측한값을 원상복구한다.
+    y_pred = scaler_y.inverse_transform(y_pred)
+
+    st.write(y_pred)
