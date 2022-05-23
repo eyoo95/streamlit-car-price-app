@@ -1,11 +1,14 @@
 import streamlit as st
 import joblib
 import numpy as np
+import sklearn
 
 def run_ml():
     st.subheader('자동차 구매 가능 가격 예측')
     # 예측하기위해서 필요한 파일들을 불러와야 한다.
     # 인공지능파일과 스케일러 파일 2개
+
+    print(sklearn.__version__)
 
     regressor = joblib.load('data/regressor.pkl')
     scaler_X = joblib.load('data/scaler_X.pkl')
@@ -28,19 +31,27 @@ def run_ml():
     debt = st.number_input('카드 빛을 입력하세요',0)
     asset = st.number_input('자산을 입력하세요',0)
 
+    if st.button('자동차 구매 금액 예측'): 
 
-    # 1. 신규고객의 정보를 넘파이 어레이로 만들어준다.
-    new_data = np.array([gender, age, salary, debt, asset])
 
-    # 2. 학습할때 사용한 X의 피텨스케일링을 이용해서 피처스케일링 한다.
-    # 먼저 데이터를 2차원으로 만든다. 
-    new_data.reshape(1,5)
-    new_data = scaler_X.transform(new_data)
+        # 1. 신규고객의 정보를 넘파이 어레이로 만들어준다.
+        new_data = np.array([gender, age, salary, debt, asset])
 
-    # 3. 인공지능에게 예측해달라고 한다.
-    y_pred = regressor.predict(new_data)
+        # 2. 학습할때 사용한 X의 피텨스케일링을 이용해서 피처스케일링 한다.
+        # 먼저 데이터를 2차원으로 만든다. 
+        new_data = new_data.reshape(1,5)
+        new_data = scaler_X.transform(new_data)
 
-    # 4. 예측한값을 원상복구한다.
-    y_pred = scaler_y.inverse_transform(y_pred)
+        # 3. 인공지능에게 예측해달라고 한다.
+        y_pred = regressor.predict(new_data)
 
-    st.write(y_pred)
+        # 4. 예측한값을 원상복구한다.
+        y_pred = scaler_y.inverse_transform(y_pred)
+
+        st.write('이 사람의 구매 가능 금액은 '+ str(round(y_pred[0,0])) +'달러 입니다.')
+
+
+        # 파이썬의 버전, 라이브러리의 버전
+
+        import sys
+        sys.version
