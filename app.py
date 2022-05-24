@@ -8,6 +8,8 @@ from PIL import Image
 def main():
     st.title('자동차 가격 예측 App')
 
+    st.text('테스트 코드')
+
     menu = ['Home','EDA','ML']
     choice = st.sidebar.selectbox('메뉴선택',menu)
     if choice == menu[0]:
